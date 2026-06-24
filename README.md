@@ -159,6 +159,7 @@ If you are currently using ioBroker JavaScript scripts for InfluxDB logging, you
 
 ## Changelog
 ### **WORK IN PROGRESS**
+- (ioBroker-Bot) Adapter requires admin >= 7.8.23 now.
 
 * (Simon Prosen) Reduced excess spacing in the admin UI header by keeping configuration tab labels on a single line
 
