@@ -56,8 +56,7 @@ export default function GroupsTab({ native, onChange }: GroupsTabProps): React.J
 	};
 
 	const updateGroup = (index: number, field: keyof LoggingGroup, value: unknown): void => {
-		const updated = groups.map((g, i) => (i === index ? { ...g, [field]: value } : g));
-		updateGroups(updated);
+		updateGroups(groups.map((g, i) => (i === index ? { ...g, [field]: value } : g)));
 	};
 
 	return (

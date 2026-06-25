@@ -1,4 +1,5 @@
 import { DialogSelectID, I18n } from '@iobroker/adapter-react-v5';
+import type { AdminConnection, IobTheme } from '@iobroker/adapter-react-v5';
 import {
 	Box,
 	Button,
@@ -26,8 +27,8 @@ import type { DatapointConfig, NativeConfig } from '../types.d';
 interface DatapointsTabProps {
 	native: NativeConfig;
 	onChange: (attr: string, value: unknown) => void;
-	socket: any;
-	theme: any;
+	socket: AdminConnection;
+	theme: IobTheme;
 }
 
 const DEFAULT_DATAPOINT: DatapointConfig = {
@@ -69,8 +70,7 @@ export default function DatapointsTab({ native, onChange, socket, theme }: Datap
 	};
 
 	const updateDatapoint = (index: number, field: keyof DatapointConfig, value: unknown): void => {
-		const updated = datapoints.map((dp, i) => (i === index ? { ...dp, [field]: value } : dp));
-		updateDatapoints(updated);
+		updateDatapoints(datapoints.map((dp, i) => (i === index ? { ...dp, [field]: value } : dp)));
 	};
 
 	const filteredDatapoints = datapoints

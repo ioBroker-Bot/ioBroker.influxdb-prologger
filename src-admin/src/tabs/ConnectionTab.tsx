@@ -1,4 +1,5 @@
 import { I18n } from '@iobroker/adapter-react-v5';
+import type { AdminConnection } from '@iobroker/adapter-react-v5';
 import { Alert, Box, Button, CircularProgress, Grid2 as Grid, TextField } from '@mui/material';
 import { useState } from 'react';
 import type { NativeConfig } from '../types.d';
@@ -6,7 +7,7 @@ import type { NativeConfig } from '../types.d';
 interface ConnectionTabProps {
 	native: NativeConfig;
 	onChange: (attr: string, value: unknown) => void;
-	socket: any;
+	socket: AdminConnection;
 	instance: number;
 }
 
@@ -31,10 +32,13 @@ export default function ConnectionTab({ native, onChange, socket, instance }: Co
 				url: native.url,
 				token: native.token,
 			});
-			if (result?.error) {
-				setTestResult({ success: false, message: result.error });
+			if ((result as { error?: string })?.error) {
+				setTestResult({ success: false, message: (result as { error: string }).error });
 			} else {
-				setTestResult({ success: true, message: result?.result || I18n.t('testSuccess') });
+				setTestResult({
+					success: true,
+					message: (result as { result?: string })?.result || I18n.t('testSuccess'),
+				});
 			}
 		} catch (e: unknown) {
 			setTestResult({ success: false, message: e instanceof Error ? e.message : String(e) });
